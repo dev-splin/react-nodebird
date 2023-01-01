@@ -15,3 +15,4 @@
    - author 입력
    - scripts
      - test :arrow_right: "dev": "next"
+5. prop-types : npm i prop-types
