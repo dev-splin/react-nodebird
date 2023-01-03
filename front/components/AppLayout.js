@@ -1,6 +1,8 @@
 import PropTypes from "prop-types";
 import Link from "next/link";
-import {Menu} from "antd";
+import {Menu, Input, Col, Row} from "antd";
+
+const {Search} = Input;
 
 const menus = [
   {
@@ -8,6 +10,9 @@ const menus = [
   },
   {
     label: (<Link href="/profile"><a>프로필</a></Link>)
+  },
+  {
+    label: <Search enterButton style={{ verticalAlign: 'middle'}}/>
   },
   {
     label: (<Link href="/signup"><a>회원가입</a></Link>)
@@ -18,7 +23,17 @@ const AppLayout = ({children}) => {
   return (
     <div>
       <Menu mode="horizontal" items={menus}/>
-      {children}
+      <Row gutter={8}>
+        <Col xs={24} md={6}>
+          왼쪽 메뉴
+        </Col>
+        <Col xs={24} md={12}>
+          {children}
+        </Col>
+        <Col xs={24} md={6}>
+          <a href="https://splin.tistory.com/" target="_blank" rel="noreferrer noopener">Made By Splin</a>
+        </Col>
+      </Row>
     </div>
   )
 }
