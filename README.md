@@ -22,6 +22,10 @@
    - npm i eslint-plugin-react -D
    - npm i eslint-plugin-react-hooks -D
    - eslint 설정은 아래를 참고
+7. 디자인을 위한 css 프레임워크 설치
+   - npm i antd
+   - npm i @ant-design/icons
+   - npm i styled-components
 
 
 
