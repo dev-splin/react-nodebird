@@ -53,13 +53,15 @@ const LoginForm = ({setIsLoggedIn}) => {
         />
       </div>
       <ButtonWrapper>
-        <Button
-          type="primary"
-          htmlType="submit"
-          loading={false}
-        >
-          로그인
-        </Button>
+        <Link href="/profile">
+          <Button
+            type="primary"
+            htmlType="submit"
+            loading={false}
+          >
+            로그인
+          </Button>
+        </Link>
         <Link href="/signup">
           <a><Button>회원가입</Button></a>
         </Link>
