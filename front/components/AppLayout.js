@@ -4,8 +4,13 @@ import {Menu, Input, Col, Row} from "antd";
 import React, {useState} from "react";
 import UserProfile from "./UserProfile";
 import LoginForm from "./LoginForm";
+import styled from "styled-components";
 
 const {Search} = Input;
+
+const SearchInput = styled(Search)`
+  vertical-align: middle;
+`
 
 const menus = [
   {
@@ -15,7 +20,7 @@ const menus = [
     label: (<Link href="/profile"><a>프로필</a></Link>)
   },
   {
-    label: <Search enterButton style={{ verticalAlign: 'middle'}}/>
+    label: <SearchInput enterButton/>
   },
   {
     label: (<Link href="/signup"><a>회원가입</a></Link>)
@@ -26,12 +31,13 @@ const menus = [
 
 const AppLayout = ({children}) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+
   return (
     <div>
       <Menu mode="horizontal" items={menus}/>
       <Row gutter={8}>
         <Col xs={24} md={6}>
-          {isLoggedIn ? <UserProfile/> : <LoginForm />}
+          {isLoggedIn ? <UserProfile setIsLoggedIn={setIsLoggedIn}/> : <LoginForm setIsLoggedIn={setIsLoggedIn}/>}
         </Col>
         <Col xs={24} md={12}>
           {children}
