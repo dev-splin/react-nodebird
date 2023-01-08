@@ -26,6 +26,8 @@
    - npm i antd
    - npm i @ant-design/icons
    - npm i styled-components
+8. 자동완성을 위한 라이브러리 설치
+   - npm i @types/react
 
 
 
