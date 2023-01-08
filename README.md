@@ -31,8 +31,8 @@
 9. redux 설치
    - npm i react-redux
    - npm i redux
-   - redux 작성을 도와주는 라이브러리 설치
-     - npm i next-redux-wrapper@6
+   - npm i next-redux-wrapper@6 (redux 작성을 도와주는 라이브러리)
+   - npm i redux-devtools-extension (브라우저 개발자도구와 연동을 도와주는 라이브러리)
 
 
 
