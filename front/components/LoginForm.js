@@ -4,6 +4,8 @@ import {Button, Form, Input} from "antd";
 import Link from "next/link";
 import styled from "styled-components";
 import useInput from "../hooks/useInput";
+import {useDispatch} from "react-redux";
+import {loginAction} from "../reducers";
 
 const ButtonWrapper = styled.div`
   margin-top: 10px;
@@ -13,13 +15,13 @@ const FormWrapper = styled(Form)`
   padding: 10px;
 `;
 
-const LoginForm = ({setIsLoggedIn}) => {
+const LoginForm = () => {
+  const dispatch = useDispatch();
   const [id, onChangeId] = useInput('');
   const [password, onChangePassword] = useInput('');
 
-  let onSubmitForm = useCallback(() => {
-    console.log(id, password);
-    setIsLoggedIn(true);
+  const onSubmitForm = useCallback(() => {
+    dispatch(loginAction({id, password}));
   }, [id, password]);
 
   return (
@@ -46,25 +48,19 @@ const LoginForm = ({setIsLoggedIn}) => {
         />
       </div>
       <ButtonWrapper>
-        <Link href="/profile">
-          <Button
-            type="primary"
-            htmlType="submit"
-            loading={false}
-          >
-            로그인
-          </Button>
-        </Link>
+        <Button
+          type="primary"
+          htmlType="submit"
+          loading={false}
+        >
+          로그인
+        </Button>
         <Link href="/signup">
           <a><Button>회원가입</Button></a>
         </Link>
       </ButtonWrapper>
     </FormWrapper>
   );
-};
-
-LoginForm.propTypes = {
-  setIsLoggedIn: PropTypes.func.isRequired,
 };
 
 export default LoginForm;
