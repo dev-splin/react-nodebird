@@ -29,6 +29,7 @@
 8. 자동완성을 위한 라이브러리 설치
    - npm i @types/react
 9. redux 설치
+   - npm i redux
    - redux 작성을 도와주는 라이브러리 설치
      - npm i next-redux-wrapper@6
 
