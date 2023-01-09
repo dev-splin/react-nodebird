@@ -1,5 +1,6 @@
 import {HYDRATE} from "next-redux-wrapper";
 
+// 초기값 설정
 const initialState = {
   user: {
     isLoggedIn: false,
@@ -12,6 +13,7 @@ const initialState = {
   }
 }
 
+// 액션 설정
 export const loginAction = (data) => {
   return {
     type: 'LOG_IN',
@@ -24,6 +26,7 @@ export const logoutAction = () => {
     type: 'LOG_OUT',
   }
 }
+// ===
 
 const rootReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -51,6 +54,7 @@ const rootReducer = (state = initialState, action) => {
           user: null,
         }
       };
+    // 디폴트가 있어야 초기 값을 불러올 수 있음
     default:
       return {...state};
   }

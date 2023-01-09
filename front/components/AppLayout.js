@@ -30,6 +30,7 @@ const menus = [
 
 
 const AppLayout = ({children}) => {
+  // redux 데이터 가져오기
   const isLoggedIn = useSelector((state) => {
 
     return state.user.isLoggedIn;
@@ -46,6 +47,7 @@ const AppLayout = ({children}) => {
           {children}
         </Col>
         <Col xs={24} md={6}>
+          {/* noreferrer noopener 참조랑 opener를 지워야 보안 상으로 안전함 */}
           <a href="https://splin.tistory.com/" target="_blank" rel="noreferrer noopener">Made By Splin</a>
         </Col>
       </Row>

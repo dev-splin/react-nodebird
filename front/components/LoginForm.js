@@ -16,11 +16,13 @@ const FormWrapper = styled(Form)`
 `;
 
 const LoginForm = () => {
+  // redux action을 사용하려면 필요
   const dispatch = useDispatch();
   const [id, onChangeId] = useInput('');
   const [password, onChangePassword] = useInput('');
 
   const onSubmitForm = useCallback(() => {
+    // redux action 호출
     dispatch(loginAction({id, password}));
   }, [id, password]);
 
