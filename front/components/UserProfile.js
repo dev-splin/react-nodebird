@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import {Avatar, Button, Card} from "antd";
 import {useCallback} from "react";
 import {useDispatch} from "react-redux";
-import {logoutAction} from "../reducers";
+import {logoutAction} from "../reducers/user";
 
 const {Meta} = Card;
 

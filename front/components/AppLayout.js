@@ -31,10 +31,7 @@ const menus = [
 
 const AppLayout = ({children}) => {
   // redux 데이터 가져오기
-  const isLoggedIn = useSelector((state) => {
-
-    return state.user.isLoggedIn;
-  });
+  const isLoggedIn = useSelector(state => state.user.isLoggedIn);
 
   return (
     <div>

@@ -10,7 +10,7 @@ import {composeWithDevTools} from "redux-devtools-extension";
 const configureStore = () => {
   const middlewares = [];
 
-  // middlewares를 사용하여 redux의 기능을 확장
+  // middlewares를 사용하여 redux의 기능을 확장 (히스토리 확인 시 필요)
   const enhancer = process.env.NODE_ENV === "production"
     ? compose(applyMiddleware(...middlewares))
     : composeWithDevTools(applyMiddleware(...middlewares)); // 개발용일 때는 개발자 도구와 연동(History)
