@@ -24,6 +24,7 @@
    - eslint 설정은 아래를 참고
 7. 디자인을 위한 css 프레임워크 설치
    - npm i antd
+   - npm i @ant-design/compatible (antd 4버전과 5버전 호환을 도와줌, ex)없어진 컴포넌트 지원 등...)
    - npm i @ant-design/icons
    - npm i styled-components
 8. 자동완성을 위한 라이브러리 설치
