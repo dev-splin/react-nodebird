@@ -4,54 +4,54 @@ export const initialState = {
       id: 1,
       User: {
         id: 1,
-        nickname: 'Splin',
+        nickname: "Splin",
       },
-      content: '첫 번째 게시글 #해시태그 #익스프레스',
+      content: "첫 번째 게시글 #해시태그 #익스프레스",
       Images: [
         {
-          src: 'src1',
+          src: "https://i.ibb.co/WPKYdQK/Lickitung1.jpg",
         },
         {
-          src: 'src2',
+          src: "https://i.ibb.co/1RDzftV/Lickitung2.jpg",
         },
         {
-          src: 'src3',
+          src: "https://i.ibb.co/jRhHDbH/Lickitung3.jpg",
         },
       ],
       Comments: [
         {
           User: {
-            nickname: 'hero',
+            nickname: "hero",
           },
-          content: 'hero content',
+          content: "hero content",
         },
         {
           User: {
-            nickname: 'academy',
+            nickname: "academy",
           },
-          content: 'academy content',
+          content: "academy content",
         },
-      ]
-    }
+      ],
+    },
   ],
   imagePaths: [],
   postAdded: false,
-}
+};
 
-const ADD_POST = 'ADD_POST';
+const ADD_POST = "ADD_POST";
 export const addPost = {
   type: ADD_POST,
-}
+};
 const dummyPost = {
   id: 2,
-  content: '더미 데이터 입니다.',
+  content: "더미 데이터 입니다.",
   User: {
     id: 1,
-    nickname: 'Splin',
+    nickname: "Splin",
   },
   Images: [],
   Comments: [],
-}
+};
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
@@ -64,6 +64,6 @@ const reducer = (state = initialState, action) => {
     default:
       return state;
   }
-}
+};
 
 export default reducer;
