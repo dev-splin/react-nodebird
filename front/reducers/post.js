@@ -21,13 +21,13 @@ export const initialState = {
       Comments: [
         {
           User: {
-            nicname: 'hero',
+            nickname: 'hero',
           },
           content: 'hero content',
         },
         {
           User: {
-            nicname: 'academy',
+            nickname: 'academy',
           },
           content: 'academy content',
         },
