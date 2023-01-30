@@ -34,6 +34,8 @@
    - npm i redux
    - npm i next-redux-wrapper@6 (redux 작성을 도와주는 라이브러리)
    - npm i redux-devtools-extension (브라우저 개발자도구와 연동을 도와주는 라이브러리)
+10. 이미지 캐러셀(이미지 슬라이더) : 유저가 스크롤을 내리지 않고도 볼 수 있는 정보의 양을 극대화하기 위한 기법
+   - npm i react-slick
 
 
 
