@@ -1,14 +1,18 @@
 import {createWrapper} from "next-redux-wrapper";
 import {applyMiddleware, compose, createStore} from "redux";
 import reducer from "../reducers";
+import rootSaga from "../sagas";
 import {composeWithDevTools} from "redux-devtools-extension";
+import createSagaMiddleware from 'redux-saga';
 
 /**
  * Store 설정.
  * @returns {Store<S & {}, Action> & Store<S & {}, A> & {dispatch: Dispatch<A>}}
  */
 const configureStore = () => {
-  const middlewares = [];
+  // redux-saga middleware 생성
+  const sagaMiddleware = createSagaMiddleware();
+  const middlewares = [sagaMiddleware];
 
   // middlewares를 사용하여 redux의 기능을 확장 (히스토리 확인 시 필요)
   const enhancer = process.env.NODE_ENV === "production"
@@ -17,6 +21,8 @@ const configureStore = () => {
 
   // store 생성
   const store = createStore(reducer, enhancer);
+  // store에 Saga 적용
+  store.sagaTask = sagaMiddleware.run(rootSaga)
 
   return store;
 };
