@@ -48,9 +48,9 @@ const PostImages = ({ images }) => {
       )}
       {images.length >= 3 && (
         <>
-          <div>
+          <div style={{display: "flex", alignItems: 'center'}}>
             <img
-              style={{ width: "50%", display: "inline-block" }}
+              style={{ width: "50%" }}
               role={"presentation"}
               src={images[0].src}
               alt={images[0].src}
@@ -59,7 +59,6 @@ const PostImages = ({ images }) => {
             <div
               role={"presentation"}
               style={{
-                display: "inline-block",
                 width: "50%",
                 textAlign: "center",
                 verticalAlign: "middle",
