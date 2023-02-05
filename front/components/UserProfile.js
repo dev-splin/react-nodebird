@@ -1,15 +1,16 @@
 import PropTypes from 'prop-types';
 import {Avatar, Button, Card} from "antd";
 import {useCallback} from "react";
-import {useDispatch} from "react-redux";
-import {logoutAction} from "../reducers/user";
+import {useDispatch, useSelector} from "react-redux";
+import {logoutRequestAction} from "../reducers/user";
 
 const {Meta} = Card;
 
 const UserProfile = () => {
   const dispatch = useDispatch();
+  const { me, isLoggingOut } = useSelector(state => state.user);
   const onLoggOut = useCallback(() => {
-    dispatch(logoutAction());
+    dispatch(logoutRequestAction());
   }, []);
 
   return (
@@ -21,10 +22,10 @@ const UserProfile = () => {
       ]}
     >
       <Meta
-        avatar={<Avatar>ZC</Avatar>}
-        title="Splin"
+        avatar={<Avatar>{me.nickname}</Avatar>}
+        title={me.nickname}
       />
-      <Button onClick={onLoggOut}>로그아웃</Button>
+      <Button onClick={onLoggOut} loading={isLoggingOut}>로그아웃</Button>
     </Card>
   );
 };
