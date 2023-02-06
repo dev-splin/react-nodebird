@@ -1,7 +1,7 @@
-import React, { useCallback, useState } from "react";
-import PropTypes from "prop-types";
-import { PlusOutlined } from "@ant-design/icons";
-import ImagesZoom from "./imagesZoom";
+import React, { useCallback, useState } from 'react';
+import PropTypes from 'prop-types';
+import { PlusOutlined } from '@ant-design/icons';
+import ImagesZoom from './imagesZoom';
 
 const PostImages = ({ images }) => {
   const [showImagesZoom, setShowImagesZoom] = useState();
@@ -19,7 +19,7 @@ const PostImages = ({ images }) => {
       {images.length === 1 && (
         <>
           <img
-            role={"presentation"}
+            role="presentation"
             src={images[0].src}
             alt={images[0].src}
             onClick={onZoom}
@@ -30,15 +30,15 @@ const PostImages = ({ images }) => {
       {images.length === 2 && (
         <>
           <img
-            role={"presentation"}
-            style={{ width: "50%", display: "inline-block" }}
+            role="presentation"
+            style={{ width: '50%', display: 'inline-block' }}
             src={images[0].src}
             alt={images[0].src}
             onClick={onZoom}
           />
           <img
-            role={"presentation"}
-            style={{ width: "50%", display: "inline-block" }}
+            role="presentation"
+            style={{ width: '50%', display: 'inline-block' }}
             src={images[1].src}
             alt={images[1].src}
             onClick={onZoom}
@@ -48,20 +48,20 @@ const PostImages = ({ images }) => {
       )}
       {images.length >= 3 && (
         <>
-          <div style={{display: "flex", alignItems: 'center'}}>
+          <div style={{ display: 'flex', alignItems: 'center' }}>
             <img
-              style={{ width: "50%" }}
-              role={"presentation"}
+              style={{ width: '50%' }}
+              role="presentation"
               src={images[0].src}
               alt={images[0].src}
               onClick={onZoom}
             />
             <div
-              role={"presentation"}
+              role="presentation"
               style={{
-                width: "50%",
-                textAlign: "center",
-                verticalAlign: "middle",
+                width: '50%',
+                textAlign: 'center',
+                verticalAlign: 'middle',
               }}
               onClick={onZoom}
             >
@@ -78,7 +78,7 @@ const PostImages = ({ images }) => {
 };
 
 PostImages.propTypes = {
-  images: PropTypes.arrayOf(PropTypes.object),
+  images: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 export default PostImages;

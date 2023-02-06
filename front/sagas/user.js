@@ -1,6 +1,6 @@
-import { fork, all, takeLatest, delay, put} from 'redux-saga/effects'
-import axios from "axios";
-import actions from "../constants/sagas";
+import { fork, all, takeLatest, delay, put } from 'redux-saga/effects';
+import axios from 'axios';
+import actions from '../constants/sagas';
 
 function logInAPI(data) {
   return axios.post('/api/login', data);
@@ -17,7 +17,7 @@ function* logIn(action) {
   } catch (e) {
     yield put({
       type: actions.LOG_IN_FAILURE,
-      error: e.response.data
+      error: e.response.data,
     });
   }
 }
@@ -36,7 +36,7 @@ function* logOut() {
   } catch (e) {
     yield put({
       type: actions.LOG_OUT_FAILURE,
-      error: e.response.data
+      error: e.response.data,
     });
   }
 }
@@ -55,7 +55,7 @@ function* signUp() {
   } catch (e) {
     yield put({
       type: actions.SIGN_UP_FAILURE,
-      error: e.response.data
+      error: e.response.data,
     });
   }
 }
@@ -78,5 +78,5 @@ export default function* userSaga() {
     fork(watchLogIn),
     fork(watchLogOut),
     fork(watcSignUp),
-  ])
+  ]);
 }

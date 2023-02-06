@@ -1,4 +1,4 @@
-import actions from "../constants/sagas";
+import actions from '../constants/sagas';
 
 export const initialState = {
   logInLoading: false, // 로그인 시도 중
@@ -13,30 +13,31 @@ export const initialState = {
   me: null,
   signUpDate: {},
   loginData: {},
-}
+};
 
 const dummyUser = (data) => ({
-  ...action.data,
+  ...data,
   nickname: 'splin',
   id: 1,
   Posts: [],
   Followings: [],
   Followers: [],
-})
+});
 
 // 액션 설정
-export const loginRequestAction = (data) => {
-  return {
-    type: actions.LOG_IN_REQUEST,
-    data,
-  }
-}
+export const loginRequestAction = (data) => ({
+  type: actions.LOG_IN_REQUEST,
+  data,
+});
 
-export const logoutRequestAction = () => {
-  return {
-    type: actions.LOG_OUT_REQUEST,
-  }
-}
+export const logoutRequestAction = () => ({
+  type: actions.LOG_OUT_REQUEST,
+});
+
+export const signUpRequestAction = (data) => ({
+  type: actions.SIGN_UP_REQUEST,
+  data,
+});
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
@@ -103,6 +104,6 @@ const reducer = (state = initialState, action) => {
     default:
       return state;
   }
-}
+};
 
 export default reducer;

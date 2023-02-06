@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Link from "next/link";
+import Link from 'next/link';
 
 const PostCardContent = ({ postData }) => {
   const hashTagRegex = /(#[^\s#]+)/g;
@@ -9,11 +9,11 @@ const PostCardContent = ({ postData }) => {
       {
         postData.split(hashTagRegex).map((content, index) => {
           if (hashTagRegex.test(content)) {
-            return <Link key={index} href={`/hastag/${content.slice(1)}`}><a>{content}</a></Link>
+            return <Link key={index} href={`/hastag/${content.slice(1)}`}><a>{content}</a></Link>;
           }
 
           return content;
-      })
+        })
       }
     </div>
   );

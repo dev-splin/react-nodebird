@@ -1,7 +1,6 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import {Form, Input} from "antd";
-import styled from "styled-components";
+import { Form, Input } from 'antd';
+import styled from 'styled-components';
 
 const FormWrapper = styled(Form)`
   margin-bottom: 20px;
@@ -9,13 +8,11 @@ const FormWrapper = styled(Form)`
   padding: 20px;
 `;
 
-const NickNameEditForm = props => {
-  return (
-    <FormWrapper>
-      <Input.Search addonBefore="닉네임" enterButton="수정"/>
-    </FormWrapper>
-  );
-};
+const NickNameEditForm = () => (
+  <FormWrapper>
+    <Input.Search addonBefore="닉네임" enterButton="수정" />
+  </FormWrapper>
+);
 
 NickNameEditForm.propTypes = {
 

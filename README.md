@@ -21,6 +21,11 @@
    - npm i eslint-plugin-import -D
    - npm i eslint-plugin-react -D
    - npm i eslint-plugin-react-hooks -D
+   - npm i -D babel-eslint 
+   - npm i -D eslint-config-airbnb
+   - npm i -D eslint-plugin-import
+   - npm i -D eslint-plugin-react-hooks
+   - npm i -D eslint-plugin-jsx-a11y
    - eslint 설정은 아래를 참고
 7. 디자인을 위한 css 프레임워크 설치
    - npm i antd

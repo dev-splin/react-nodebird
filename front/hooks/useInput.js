@@ -1,4 +1,4 @@
-import {useCallback, useState} from "react";
+import { useCallback, useState } from 'react';
 
 /**
  * input을 위한 커스텀 훅
@@ -11,5 +11,5 @@ export default (initialValue = null) => {
     setValue(e.target.value);
   }, []);
 
-  return [value, handler];
-}
+  return [value, handler, setValue];
+};

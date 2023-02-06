@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Head from "next/head";
-import wrapper from "../store/configureStore";
+import Head from 'next/head';
+import wrapper from '../store/configureStore';
 
 /**
  * server에서 페이지를 구성할 때 공통적으로 사용
@@ -11,17 +11,15 @@ import wrapper from "../store/configureStore";
  * @returns {JSX.Element}
  * @constructor
  */
-const NodeBird = ({Component}) => {
-  return (
-    <>
-      <Head>
-        <meta charSet="utf-8"/>
-        <title>NodeBird</title>
-      </Head>
-      <Component/>
-    </>
-  );
-};
+const NodeBird = ({ Component }) => (
+  <>
+    <Head>
+      <meta charSet="utf-8" />
+      <title>NodeBird</title>
+    </Head>
+    <Component />
+  </>
+);
 
 NodeBird.propTypes = {
   Component: PropTypes.elementType.isRequired,

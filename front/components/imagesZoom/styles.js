@@ -1,11 +1,11 @@
-import styled, {createGlobalStyle} from "styled-components";
-import {CloseOutlined} from "@ant-design/icons";
+import styled, { createGlobalStyle } from 'styled-components';
+import { CloseOutlined } from '@ant-design/icons';
 
 export const Global = createGlobalStyle`
   .slick-slide {
     display: inline-block;
   }
-`
+`;
 
 export const Overlay = styled.div`
   position: fixed;
@@ -39,7 +39,7 @@ export const CloseBtn = styled(CloseOutlined)`
   padding: 15px;
   line-height: 14px;
   cursor: pointer;
-`
+`;
 
 export const SlickWrapper = styled.div`
   height: calc(100% - 44px);
