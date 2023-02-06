@@ -106,7 +106,7 @@ const reducer = (state = initialState, action) => {
         addCommentError: null,
       };
     case actions.ADD_COMMENT_SUCCESS: {
-      const postIndex = state.mainPosts.find((post) => post.id === action.data.postId);
+      const postIndex = state.mainPosts.findIndex((post) => post.id === action.data.postId);
       const post = { ...state.mainPosts[postIndex] };
       post.Comments = [dummyComment(action.data.content), ...post.Comments];
       const mainPosts = [...state.mainPosts];
@@ -114,7 +114,7 @@ const reducer = (state = initialState, action) => {
 
       return {
         ...state,
-        mainPosts: [action.data, ...state.mainPosts],
+        mainPosts,
         addCommentLoadging: false,
         addCommentDone: true,
       };
