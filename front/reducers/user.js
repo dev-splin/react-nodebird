@@ -7,9 +7,12 @@ export const initialState = {
   logOutLoading: false, // 로그아웃 시도 중
   logOutDone: false,
   logOutError: false,
-  signUpLoading: false, //
+  signUpLoading: false, // 회원가입 시도
   signUpDone: false,
   signUpError: false,
+  changeNicknameLoading: false, // 닉네임 변경 시도
+  changeNicknameDone: false,
+  changeNicknameError: false,
   me: null,
   signUpDate: {},
   loginData: {},

@@ -12,6 +12,7 @@ function* addPost(action) {
     yield delay(1000);
     yield put({
       type: actions.ADD_POST_SUCCESS,
+      data: action.data,
     });
   } catch (e) {
     yield put({
@@ -35,6 +36,7 @@ function* addComment(action) {
     yield delay(1000);
     yield put({
       type: actions.ADD_COMMENT_SUCCESS,
+      data: action.data,
     });
   } catch (e) {
     yield put({
@@ -45,7 +47,7 @@ function* addComment(action) {
 }
 
 function* watchAddComment() {
-  yield takeLatest(actions.ADD_POST_REQUEST, addComment);
+  yield takeLatest(actions.ADD_COMMENT_REQUEST, addComment);
 }
 
 // saga는 generator 방식을 사용함
