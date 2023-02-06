@@ -12,24 +12,31 @@ export const initialState = {
       content: '첫 번째 게시글 #해시태그 #익스프레스',
       Images: [
         {
+          id: shortid.generate(),
           src: 'https://i.ibb.co/WPKYdQK/Lickitung1.jpg',
         },
         {
+          id: shortid.generate(),
           src: 'https://i.ibb.co/1RDzftV/Lickitung2.jpg',
         },
         {
+          id: shortid.generate(),
           src: 'https://i.ibb.co/jRhHDbH/Lickitung3.jpg',
         },
       ],
       Comments: [
         {
+          id: shortid.generate(),
           User: {
+            id: shortid.generate(),
             nickname: 'hero',
           },
           content: 'hero content',
         },
         {
+          id: shortid.generate(),
           User: {
+            id: shortid.generate(),
             nickname: 'academy',
           },
           content: 'academy content',
@@ -68,8 +75,8 @@ const dummyPost = (data) => ({
 });
 
 const dummyComment = (data) => ({
-  id: shortid.generate(),
-  content: data,
+  id: data.id,
+  content: data.content,
   User: {
     id: 1,
     nickname: 'Splin',
@@ -108,7 +115,7 @@ const reducer = (state = initialState, action) => {
     case actions.ADD_COMMENT_SUCCESS: {
       const postIndex = state.mainPosts.findIndex((post) => post.id === action.data.postId);
       const post = { ...state.mainPosts[postIndex] };
-      post.Comments = [dummyComment(action.data.content), ...post.Comments];
+      post.Comments = [dummyComment(action.data), ...post.Comments];
       const mainPosts = [...state.mainPosts];
       mainPosts[postIndex] = post;
 

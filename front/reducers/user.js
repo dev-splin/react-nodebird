@@ -22,9 +22,9 @@ const dummyUser = (data) => ({
   ...data,
   nickname: 'splin',
   id: 1,
-  Posts: [],
-  Followings: [],
-  Followers: [],
+  Posts: [{ id: 1 }],
+  Followings: [{ nickname: 'sp' }, { nickname: 'sp1' }, { nickname: 'sp2' }],
+  Followers: [{ nickname: 'sp' }, { nickname: 'sp1' }, { nickname: 'sp2' }],
 });
 
 // 액션 설정
@@ -103,6 +103,14 @@ const reducer = (state = initialState, action) => {
         ...state,
         signUpLoading: false,
         signUpError: action.error,
+      };
+    case actions.ADD_POST_TO_ME:
+      return {
+        ...state,
+        me: {
+          ...state.me,
+          Posts: [{ id: action.data.id }, ...state.me.Posts],
+        },
       };
     default:
       return state;
