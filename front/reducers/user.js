@@ -1,65 +1,104 @@
 import actions from "../constants/sagas";
 
 export const initialState = {
-  isLoggingIn: false,
-  isLoggedIn: false,
-  isLoggingOut: false,
+  logInLoading: false, // 로그인 시도 중
+  logInDone: false,
+  logInError: false,
+  logOutLoading: false, // 로그아웃 시도 중
+  logOutDone: false,
+  logOutError: false,
+  signUpLoading: false, //
+  signUpDone: false,
+  signUpError: false,
   me: null,
   signUpDate: {},
   loginData: {},
 }
 
+const dummyUser = (data) => ({
+  ...action.data,
+  nickname: 'splin',
+  id: 1,
+  Posts: [],
+  Followings: [],
+  Followers: [],
+})
+
 // 액션 설정
 export const loginRequestAction = (data) => {
   return {
-    type: actions.LOG_IN,
+    type: actions.LOG_IN_REQUEST,
     data,
   }
 }
 
 export const logoutRequestAction = () => {
   return {
-    type: actions.LOG_OUT,
+    type: actions.LOG_OUT_REQUEST,
   }
 }
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case actions.LOG_IN:
+    case actions.LOG_IN_REQUEST:
       return {
         ...state,
-        isLoggingIn: true,
+        logInLoading: true,
+        logInError: null,
+        logInDone: false,
       };
     case actions.LOG_IN_SUCCESS:
       return {
         ...state,
-        isLoggingIn: false,
-        isLoggedIn: true,
-        me: {...action.data, nickname: 'splin'},
+        logInLoading: false,
+        logInDone: true,
+        me: dummyUser(action.data),
       };
     case actions.LOG_IN_FAILURE:
       return {
         ...state,
-        isLoggedIn: false,
-        isLoggingIn: false,
+        logInLoading: false,
+        logInError: action.error,
       };
-    case actions.LOG_OUT:
+    case actions.LOG_OUT_REQUEST:
       console.log('로그아웃');
       return {
         ...state,
-        isLoggingOut: true,
+        logOutLoading: true,
+        logOutDone: false,
+        logOutError: null,
       };
     case actions.LOG_OUT_SUCCESS:
       return {
         ...state,
-        isLoggingOut: false,
-        isLoggedIn: false,
+        logOutLoading: false,
+        logOutDone: true,
         me: null,
       };
     case actions.LOG_OUT_FAILURE:
       return {
         ...state,
-        isLoggingOut: false,
+        logOutLoading: false,
+        logOutError: action.error,
+      };
+    case actions.SIGN_UP_REQUEST:
+      return {
+        ...state,
+        signUpLoading: true,
+        signUpDone: false,
+        signUpError: null,
+      };
+    case actions.SIGN_UP_SUCCESS:
+      return {
+        ...state,
+        signUpLoading: false,
+        signUpDone: true,
+      };
+    case actions.SIGN_UP_FAILURE:
+      return {
+        ...state,
+        signUpLoading: false,
+        signUpError: action.error,
       };
     default:
       return state;

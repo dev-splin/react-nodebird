@@ -17,7 +17,7 @@ function* logIn(action) {
   } catch (e) {
     yield put({
       type: actions.LOG_IN_FAILURE,
-      data: e.response.data
+      error: e.response.data
     });
   }
 }
@@ -36,17 +36,40 @@ function* logOut() {
   } catch (e) {
     yield put({
       type: actions.LOG_OUT_FAILURE,
-      data: e.response.data
+      error: e.response.data
+    });
+  }
+}
+
+function signUpAPI() {
+  return axios.post('/api/signup');
+}
+
+function* signUp() {
+  try {
+    // const result = yield call(signUpAPI);
+    yield delay(1000);
+    yield put({
+      type: actions.SIGN_UP_SUCCESS,
+    });
+  } catch (e) {
+    yield put({
+      type: actions.SIGN_UP_FAILURE,
+      error: e.response.data
     });
   }
 }
 
 function* watchLogIn() {
-  yield takeLatest(actions.LOG_IN, logIn);
+  yield takeLatest(actions.LOG_IN_REQUEST, logIn);
 }
 
 function* watchLogOut() {
-  yield takeLatest(actions.LOG_OUT, logOut);
+  yield takeLatest(actions.LOG_OUT_REQUEST, logOut);
+}
+
+function* watcSignUp() {
+  yield takeLatest(actions.SIGN_UP_REQUEST, signUp);
 }
 
 export default function* userSaga() {
@@ -54,5 +77,6 @@ export default function* userSaga() {
     // fork(비동기)나 call(동기)로 genaerator 함수를 실행
     fork(watchLogIn),
     fork(watchLogOut),
+    fork(watcSignUp),
   ])
 }
