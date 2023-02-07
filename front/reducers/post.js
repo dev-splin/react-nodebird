@@ -1,4 +1,5 @@
 import shortid from 'shortid';
+import produce from 'immer';
 import actions from '../constants/sagas';
 
 export const initialState = {
@@ -79,85 +80,65 @@ const dummyPost = (data) => ({
 
 const dummyComment = (data) => ({
   id: shortid.generate(),
-  content: data,
+  content: data.content,
   User: {
     id: 1,
     nickname: 'Splin',
   },
 });
 
-const reducer = (state = initialState, action) => {
-  switch (action.type) {
-    case actions.ADD_POST_REQUEST:
-      return {
-        ...state,
-        addPostLoadging: true,
-        addPostDone: false,
-        addPostError: null,
-      };
-    case actions.ADD_POST_SUCCESS:
-      return {
-        ...state,
-        mainPosts: [dummyPost(action.data), ...state.mainPosts],
-        addPostLoadging: false,
-        addPostDone: true,
-      };
-    case actions.ADD_POST_FAILURE:
-      return {
-        ...state,
-        addPostLoadging: false,
-        addPostError: action.error,
-      };
-    case actions.ADD_COMMENT_REQUEST:
-      return {
-        ...state,
-        addCommentLoadging: true,
-        addCommentDone: false,
-        addCommentError: null,
-      };
-    case actions.ADD_COMMENT_SUCCESS: {
-      const postIndex = state.mainPosts.findIndex((post) => post.id === action.data.postId);
-      const post = { ...state.mainPosts[postIndex] };
-      post.Comments = [dummyComment(action.data), ...post.Comments];
-      const mainPosts = [...state.mainPosts];
-      mainPosts[postIndex] = post;
-
-      return {
-        ...state,
-        mainPosts,
-        addCommentLoadging: false,
-        addCommentDone: true,
-      };
+// 이전 상태를 액션을 통해 다음 상태로 만들어내는 함수(불변성을 지켜야 함)
+const reducer = (state = initialState, action) =>
+  // immber를 사용하여 불변성을 신경쓰지 않고 개발할 수 있음
+  produce(state, (draft) => {
+    switch (action.type) {
+      case actions.ADD_POST_REQUEST:
+        draft.addPostLoadging = true;
+        draft.addPostDone = false;
+        draft.addPostError = null;
+        break;
+      case actions.ADD_POST_SUCCESS:
+        draft.addPostLoadging = false;
+        draft.addPostDone = true;
+        draft.mainPosts.unshift(dummyPost(action.data));
+        break;
+      case actions.ADD_POST_FAILURE:
+        draft.addPostLoadging = false;
+        draft.addPostError = action.error;
+        break;
+      case actions.ADD_COMMENT_REQUEST:
+        draft.addCommentLoadging = true;
+        draft.addCommentDone = false;
+        draft.addCommentError = null;
+        break;
+      case actions.ADD_COMMENT_SUCCESS: {
+        const post = draft.mainPosts.find((mainPost) => mainPost.id === action.data.postId);
+        post.Comments.unshift(dummyComment(action.data));
+        draft.addCommentLoadging = false;
+        draft.addCommentDone = true;
+        break;
+      }
+      case actions.ADD_COMMENT_FAILURE:
+        draft.addCommentLoadging = false;
+        draft.addCommentError = action.error;
+        break;
+      case actions.REMOVE_POST_REQUEST:
+        draft.removePostLoadging = true;
+        draft.removePostDone = false;
+        draft.removePostError = null;
+        break;
+      case actions.REMOVE_POST_SUCCESS:
+        draft.mainPosts = draft.mainPosts.filter((post) => post.id !== action.data);
+        draft.removePostLoadging = false;
+        draft.removePostDone = true;
+        break;
+      case actions.REMOVE_POST_FAILURE:
+        draft.removePostLoadging = false;
+        draft.removePostError = action.error;
+        break;
+      default:
+        break;
     }
-    case actions.ADD_COMMENT_FAILURE:
-      return {
-        ...state,
-        addCommentLoadging: false,
-        addCommentError: action.error,
-      };
-    case actions.REMOVE_POST_REQUEST:
-      return {
-        ...state,
-        removePostLoadging: true,
-        removePostDone: false,
-        removePostError: null,
-      };
-    case actions.REMOVE_POST_SUCCESS:
-      return {
-        ...state,
-        mainPosts: state.mainPosts.filter((post) => post.id !== action.data),
-        removePostLoadging: false,
-        removePostDone: true,
-      };
-    case actions.REMOVE_POST_FAILURE:
-      return {
-        ...state,
-        removePostLoadging: false,
-        removePostError: action.error,
-      };
-    default:
-      return state;
-  }
-};
+  });
 
 export default reducer;

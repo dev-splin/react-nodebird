@@ -64,7 +64,6 @@ function* removePost(action) {
   try {
     // const result = yield call(removePostAPI, action.data);
     yield delay(1000);
-    const id = shortid.generate();
     yield put({
       type: actions.REMOVE_POST_SUCCESS,
       data: action.data,

@@ -1,3 +1,4 @@
+import produce from 'immer';
 import actions from '../constants/sagas';
 
 export const initialState = {
@@ -42,87 +43,58 @@ export const signUpRequestAction = (data) => ({
   data,
 });
 
-const reducer = (state = initialState, action) => {
+const reducer = (state = initialState, action) => produce(state, (draft) => {
   switch (action.type) {
     case actions.LOG_IN_REQUEST:
-      return {
-        ...state,
-        logInLoading: true,
-        logInError: null,
-        logInDone: false,
-      };
+      draft.logInLoading = true;
+      draft.logInError = null;
+      draft.logInDone = false;
+      break;
     case actions.LOG_IN_SUCCESS:
-      return {
-        ...state,
-        logInLoading: false,
-        logInDone: true,
-        me: dummyUser(action.data),
-      };
+      draft.me = dummyUser(action.data);
+      draft.logInLoading = false;
+      draft.logInDone = true;
+      break;
     case actions.LOG_IN_FAILURE:
-      return {
-        ...state,
-        logInLoading: false,
-        logInError: action.error,
-      };
+      draft.logInLoading = false;
+      draft.logInDone = action.error;
+      break;
     case actions.LOG_OUT_REQUEST:
-      console.log('로그아웃');
-      return {
-        ...state,
-        logOutLoading: true,
-        logOutDone: false,
-        logOutError: null,
-      };
+      draft.logOutLoading = true;
+      draft.logOutDone = false;
+      draft.logOutError = null;
+      break;
     case actions.LOG_OUT_SUCCESS:
-      return {
-        ...state,
-        logOutLoading: false,
-        logOutDone: true,
-        me: null,
-      };
+      draft.me = null;
+      draft.logOutLoading = false;
+      draft.logOutDone = true;
+      break;
     case actions.LOG_OUT_FAILURE:
-      return {
-        ...state,
-        logOutLoading: false,
-        logOutError: action.error,
-      };
+      draft.logOutLoading = false;
+      draft.logOutError = action.error;
+      break;
     case actions.SIGN_UP_REQUEST:
-      return {
-        ...state,
-        signUpLoading: true,
-        signUpDone: false,
-        signUpError: null,
-      };
+      draft.signUpLoading = true;
+      draft.signUpDone = false;
+      draft.signUpError = null;
+      break;
     case actions.SIGN_UP_SUCCESS:
-      return {
-        ...state,
-        signUpLoading: false,
-        signUpDone: true,
-      };
+      draft.signUpLoading = false;
+      draft.signUpDone = true;
+      break;
     case actions.SIGN_UP_FAILURE:
-      return {
-        ...state,
-        signUpLoading: false,
-        signUpError: action.error,
-      };
+      draft.signUpLoading = false;
+      draft.signUpError = action.error;
+      break;
     case actions.ADD_POST_TO_ME:
-      return {
-        ...state,
-        me: {
-          ...state.me,
-          Posts: [{ id: action.data.id }, ...state.me.Posts],
-        },
-      };
+      draft.me.Posts.unshift({ id: action.data.id });
+      break;
     case actions.REMOVE_POST_OF_ME:
-      return {
-        ...state,
-        me: {
-          ...state.me,
-          Posts: state.me.Posts.filter((post) => post.id !== action.data),
-        },
-      };
+      draft.me.Posts = draft.me.Posts.filter((post) => post.id !== action.data);
+      break;
     default:
-      return state;
+      break;
   }
-};
+});
 
 export default reducer;
