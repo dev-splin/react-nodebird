@@ -56,11 +56,41 @@ function* watchAddComment() {
   yield takeLatest(actions.ADD_COMMENT_REQUEST, addComment);
 }
 
+function removePostAPI(data) {
+  return axios.delete('/api/post', data);
+}
+
+function* removePost(action) {
+  try {
+    // const result = yield call(removePostAPI, action.data);
+    yield delay(1000);
+    const id = shortid.generate();
+    yield put({
+      type: actions.REMOVE_POST_SUCCESS,
+      data: action.data,
+    });
+    yield put({
+      type: actions.REMOVE_POST_OF_ME,
+      data: action.data,
+    });
+  } catch (e) {
+    yield put({
+      type: actions.REMOVE_POST_FAILURE,
+      error: e.response.data,
+    });
+  }
+}
+
+function* watchRemovePost() {
+  yield takeLatest(actions.REMOVE_POST_REQUEST, removePost);
+}
+
 // saga는 generator 방식을 사용함
 export default function* postSaga() {
   // 배열 안에 동작을 한 번에 실행
   yield all([
     fork(watchAddPost),
     fork(watchAddComment),
+    fork(watchRemovePost),
   ]);
 }

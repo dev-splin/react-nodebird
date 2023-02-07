@@ -48,6 +48,9 @@ export const initialState = {
   addPostLoadging: false,
   addPostDone: false,
   addPostError: null,
+  removePostLoadging: false,
+  removePostDone: false,
+  removePostError: null,
   addCommentLoadging: false,
   addCommentDone: false,
   addCommentError: null,
@@ -64,8 +67,8 @@ export const addComment = (data) => ({
 });
 
 const dummyPost = (data) => ({
-  id: shortid.generate(),
-  content: data,
+  id: data.id,
+  content: data.content,
   User: {
     id: 1,
     nickname: 'Splin',
@@ -75,8 +78,8 @@ const dummyPost = (data) => ({
 });
 
 const dummyComment = (data) => ({
-  id: data.id,
-  content: data.content,
+  id: shortid.generate(),
+  content: data,
   User: {
     id: 1,
     nickname: 'Splin',
@@ -131,6 +134,26 @@ const reducer = (state = initialState, action) => {
         ...state,
         addCommentLoadging: false,
         addCommentError: action.error,
+      };
+    case actions.REMOVE_POST_REQUEST:
+      return {
+        ...state,
+        removePostLoadging: true,
+        removePostDone: false,
+        removePostError: null,
+      };
+    case actions.REMOVE_POST_SUCCESS:
+      return {
+        ...state,
+        mainPosts: state.mainPosts.filter((post) => post.id !== action.data),
+        removePostLoadging: false,
+        removePostDone: true,
+      };
+    case actions.REMOVE_POST_FAILURE:
+      return {
+        ...state,
+        removePostLoadging: false,
+        removePostError: action.error,
       };
     default:
       return state;
