@@ -45,7 +45,7 @@
    - npm i react-slick
 11. 비동기 라이브러리 설치 : npm i axios
 12. 랜덤 id를 만들어 주는 라이브러리(더미데이터 용) : npm i shortid
-13. 더미데이터를 만들어주는 라이브러리 : npm i faker
+13. 더미데이터를 만들어주는 라이브러리 : npm i @faker-js/faker
 
 
 

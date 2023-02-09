@@ -1,5 +1,6 @@
 import shortid from 'shortid';
 import produce from 'immer';
+import { faker } from '@faker-js/faker';
 import actions from '../constants/sagas';
 
 export const initialState = {
@@ -56,6 +57,25 @@ export const initialState = {
   addCommentDone: false,
   addCommentError: null,
 };
+
+initialState.mainPosts = initialState.mainPosts.concat(
+  Array(20).fill().map(() => ({
+    id: shortid.generate(),
+    User: {
+      id: shortid.generate(),
+      nickname: faker.name.fullName(),
+    },
+    content: faker.lorem.paragraph(),
+    Images: [{ src: faker.image.cats() }],
+    Comments: [{
+      User: {
+        id: shortid.generate(),
+        nickname: faker.name.fullName(),
+      },
+      content: faker.lorem.sentence(),
+    }],
+  })),
+);
 
 export const addPost = (data) => ({
   type: actions.ADD_POST_REQUEST,
