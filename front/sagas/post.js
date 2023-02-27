@@ -1,7 +1,32 @@
-import { fork, all, takeLatest, delay, put } from 'redux-saga/effects';
+import { fork, all, takeLatest, delay, put, throttle } from 'redux-saga/effects';
 import axios from 'axios';
 import shortid from 'shortid';
 import actions from '../constants/sagas';
+import { generateDummyPost } from '../reducers/post';
+
+function loadPostAPI(data) {
+  return axios.post('/api/post', data);
+}
+
+function* loadPost(action) {
+  try {
+    // const result = yield call(loadPostAPI, action.data);
+    yield delay(1000);
+    yield put({
+      type: actions.LOAD_POSTS_SUCCESS,
+      data: generateDummyPost(10),
+    });
+  } catch (e) {
+    yield put({
+      type: actions.LOAD_POSTS_FAILURE,
+      error: e.response.data,
+    });
+  }
+}
+
+function* watchLoadPosts() {
+  yield throttle(5000, actions.LOAD_POSTS_REQUEST, loadPost);
+}
 
 function addPostAPI(data) {
   return axios.post('/api/post', data);
@@ -88,6 +113,7 @@ function* watchRemovePost() {
 export default function* postSaga() {
   // 배열 안에 동작을 한 번에 실행
   yield all([
+    fork(watchLoadPosts),
     fork(watchAddPost),
     fork(watchAddComment),
     fork(watchRemovePost),

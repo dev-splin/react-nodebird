@@ -47,6 +47,10 @@ export const initialState = {
     },
   ],
   imagePaths: [],
+  hasMorePosts: true,
+  loadPostsLoadging: false,
+  loadPostsDone: false,
+  loadPostsError: null,
   addPostLoadging: false,
   addPostDone: false,
   addPostError: null,
@@ -58,24 +62,22 @@ export const initialState = {
   addCommentError: null,
 };
 
-initialState.mainPosts = initialState.mainPosts.concat(
-  Array(20).fill().map(() => ({
+export const generateDummyPost = (number) => Array(number).fill().map(() => ({
+  id: shortid.generate(),
+  User: {
     id: shortid.generate(),
+    nickname: faker.name.fullName(),
+  },
+  content: faker.lorem.paragraph(),
+  Images: [{ src: faker.image.image() }],
+  Comments: [{
     User: {
       id: shortid.generate(),
       nickname: faker.name.fullName(),
     },
-    content: faker.lorem.paragraph(),
-    Images: [{ src: faker.image.cats() }],
-    Comments: [{
-      User: {
-        id: shortid.generate(),
-        nickname: faker.name.fullName(),
-      },
-      content: faker.lorem.sentence(),
-    }],
-  })),
-);
+    content: faker.lorem.sentence(),
+  }],
+}));
 
 export const addPost = (data) => ({
   type: actions.ADD_POST_REQUEST,
@@ -112,6 +114,21 @@ const reducer = (state = initialState, action) =>
   // immber를 사용하여 불변성을 신경쓰지 않고 개발할 수 있음
   produce(state, (draft) => {
     switch (action.type) {
+      case actions.LOAD_POSTS_REQUEST:
+        draft.loadPostsLoadging = true;
+        draft.loadPostsDone = false;
+        draft.loadPostsError = null;
+        break;
+      case actions.LOAD_POSTS_SUCCESS:
+        draft.loadPostsLoadging = false;
+        draft.loadPostsDone = true;
+        draft.mainPosts = action.data.concat(draft.mainPosts);
+        draft.hasMorePosts = draft.mainPosts.length < 30;
+        break;
+      case actions.LOAD_POSTS_FAILURE:
+        draft.loadPostsLoadging = false;
+        draft.loadPostsError = action.error;
+        break;
       case actions.ADD_POST_REQUEST:
         draft.addPostLoadging = true;
         draft.addPostDone = false;
