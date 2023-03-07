@@ -2,6 +2,12 @@ import produce from 'immer';
 import actions from '../constants/sagas';
 
 export const initialState = {
+  followLoading: false, // 팔로우 시도 중
+  followDone: false,
+  followError: false,
+  unfollowLoading: false, // 언팔로우 시도 중
+  unfollowDone: false,
+  unfollowError: false,
   logInLoading: false, // 로그인 시도 중
   logInDone: false,
   logInError: false,
@@ -45,6 +51,34 @@ export const signUpRequestAction = (data) => ({
 
 const reducer = (state = initialState, action) => produce(state, (draft) => {
   switch (action.type) {
+    case actions.FOLLOW_REQUEST:
+      draft.followLoading = true;
+      draft.followError = null;
+      draft.followDone = false;
+      break;
+    case actions.FOLLOW_SUCCESS:
+      draft.me.Followings.push({ id: action.data });
+      draft.followLoading = false;
+      draft.followDone = true;
+      break;
+    case actions.FOLLOW_FAILURE:
+      draft.followLoading = false;
+      draft.followDone = action.error;
+      break;
+    case actions.UNFOLLOW_REQUEST:
+      draft.unfollowLoading = true;
+      draft.unfollowError = null;
+      draft.unfollowDone = false;
+      break;
+    case actions.UNFOLLOW_SUCCESS:
+      draft.me.Followings = draft.me.Followings.filter((following) => following.id !== action.data);
+      draft.unfollowLoading = false;
+      draft.unfollowDone = true;
+      break;
+    case actions.UNFOLLOW_FAILURE:
+      draft.unfollowLoading = false;
+      draft.unfollowDone = action.error;
+      break;
     case actions.LOG_IN_REQUEST:
       draft.logInLoading = true;
       draft.logInError = null;

@@ -60,6 +60,46 @@ function* signUp() {
   }
 }
 
+function followAPI() {
+  return axios.post('/api/follow');
+}
+
+function* follow(action) {
+  try {
+    // const result = yield call(followAPI);
+    yield delay(1000);
+    yield put({
+      type: actions.FOLLOW_SUCCESS,
+      data: action.data,
+    });
+  } catch (e) {
+    yield put({
+      type: actions.FOLLOW_FAILURE,
+      error: e.response.data,
+    });
+  }
+}
+
+function unfollowAPI() {
+  return axios.post('/api/unfollow');
+}
+
+function* unfollow(action) {
+  try {
+    // const result = yield call(unfollowAPI);
+    yield delay(1000);
+    yield put({
+      type: actions.UNFOLLOW_SUCCESS,
+      data: action.data,
+    });
+  } catch (e) {
+    yield put({
+      type: actions.UNFOLLOW_FAILURE,
+      error: e.response.data,
+    });
+  }
+}
+
 function* watchLogIn() {
   yield takeLatest(actions.LOG_IN_REQUEST, logIn);
 }
@@ -68,8 +108,16 @@ function* watchLogOut() {
   yield takeLatest(actions.LOG_OUT_REQUEST, logOut);
 }
 
-function* watcSignUp() {
+function* watchSignUp() {
   yield takeLatest(actions.SIGN_UP_REQUEST, signUp);
+}
+
+function* watchFollow() {
+  yield takeLatest(actions.FOLLOW_REQUEST, follow);
+}
+
+function* watchUnfollow() {
+  yield takeLatest(actions.UNFOLLOW_REQUEST, unfollow);
 }
 
 export default function* userSaga() {
@@ -77,6 +125,8 @@ export default function* userSaga() {
     // fork(비동기)나 call(동기)로 genaerator 함수를 실행
     fork(watchLogIn),
     fork(watchLogOut),
-    fork(watcSignUp),
+    fork(watchSignUp),
+    fork(watchFollow),
+    fork(watchUnfollow),
   ]);
 }
